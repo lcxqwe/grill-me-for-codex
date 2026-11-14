@@ -34,9 +34,20 @@ To try the controls outside Codex, run `npm run preview` and open the address it
 
 Return to the same chat and say “continue.” Questions and submitted answers are kept locally for 30 days. Unsubmitted selections and text must be entered again after closing the card.
 
-If submission saves the answer but the chat does not continue, reconnect the server and invoke the skill again. Support for inline cards and submission during a waiting turn depends on the Codex client. The skill uses native question tools when the custom cards are unavailable.
+| Problem | What to do |
+| --- | --- |
+| No confirmation after Submit | Retry the same answer; it will not create a duplicate. |
+| You want to change a submitted answer | Ask for a new question. Submitted answers cannot be replaced. |
+| The card reports a saving error | Check disk space and folder permissions, then retry. |
+| The chat or saved records were deleted, or records expired | Start a new questionnaire. |
 
-[More on recovery](docs/edge-cases.md) · [Privacy](PRIVACY.md)
+If the answer is saved but the chat stops, send “continue” in the same chat. After an update, reconnect the MCP server and invoke the skill again. A saved answer cannot restart a chat turn that has already ended. Support for inline cards and submission during a waiting turn depends on the Codex client. The skill uses native question tools when custom cards are unavailable.
+
+## Privacy
+
+Questions, images, and submitted answers are stored locally as plaintext in `state/` beside the installed server. Set `GRILL_UI_STATE_DIR` to use another folder.
+
+Do not enter passwords or API keys. Keep runtime records, Codex configuration, environment files, logs, and installation backups out of the repository.
 
 ## Development
 
@@ -44,5 +55,7 @@ If submission saves the answer but the chat does not continue, reconnect the ser
 npm test
 python scripts/check_privacy.py
 ```
+
+Before publishing, review the staged files and run the privacy check. It flags common credentials and personal paths without printing matched values; review other private details yourself.
 
 See [dependency licenses](THIRD_PARTY_NOTICES.md). No license for the project's original code has been selected.
